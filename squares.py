@@ -65,15 +65,22 @@ if __name__ == "__main__":
     
     
     parser = ArgumentParser(description="Generate squares")
-    parser.add_argument('n1')
-    parser.add_argument('n2')
-    parser.add_argument('n3')
-    parser.add_argument('--weights')
+    parser.add_argument(
+        "numbers",
+        nargs="+",
+        type=int,
+        help="Numbers to be squared and averaged"
+    )
+
+    parser.add_argument(
+        "--weights",
+        nargs="+",
+        type=int,
+        help="weights for the numbers"
+    )
     arguments= parser.parse_args()
 
-    numbers_strings = [arguments.n1, arguments.n2, arguments.n3]
-    numbers = convert_numbers(numbers_strings)
-
-    result = average_of_squares(numbers, arguments.weights)
+   
+    result = average_of_squares(arguments.numbers, arguments.weights)
 
     print(result)
