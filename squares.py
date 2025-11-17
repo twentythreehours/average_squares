@@ -1,6 +1,7 @@
 
 #!/usr/bin/env python
 from argparse import ArgumentParser
+import numpy as np
 
 
 """Computation of weighted average of squares."""
@@ -66,21 +67,24 @@ if __name__ == "__main__":
     
     parser = ArgumentParser(description="Generate squares")
     parser.add_argument(
-        "numbers",
-        nargs="+",
-        type=int,
-        help="Numbers to be squared and averaged"
+        "numbers_file",
+        help="a file with one number a line"
     )
 
     parser.add_argument(
         "--weights",
-        nargs="+",
-        type=int,
+        dest="weights_file",
         help="weights for the numbers"
     )
     arguments= parser.parse_args()
 
+    numbers = np.loadtxt(arguments.numbers_file)
+    if arguments.weights_file is not None:
+        weights = np.loadtxt(arguments.weights_file)
+    else:
+        weights = None
+
    
-    result = average_of_squares(arguments.numbers, arguments.weights)
+    result = average_of_squares(numbers, weights)
 
     print(result)
